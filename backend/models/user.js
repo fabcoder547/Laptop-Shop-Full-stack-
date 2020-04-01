@@ -46,18 +46,20 @@ const userSchema = new Schema({
     }
 
 
-}, { timestamps: true });
+}, {
+    timestamps: true
+});
 
 userSchema.methods = {
 
     authenticate: function(plainpassword) {
-        if (this.securePassword(plainpassword) == this.encry_password)
+        if (this.securePassword(plainpassword) === this.encry_password)
             return true;
         else {
             return false;
         }
     },
-
+    //here do not use arrow functions
     securePassword: function(plainpassword) {
         if (!plainpassword)
             return ""

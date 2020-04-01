@@ -62,13 +62,20 @@ exports.signin = (req, res) => {
             });
         }
         var token = jwt.sign({
-            _id: user._id
+            id: user._id
         }, process.env.SECRET);
         res.cookie("token", token, {
-                expire: '1h'
-            })
-            //send response
-        console.log(res.cookie())
+            maxAge: 55500000
+        })
+        res.cookie("tp", 2000)
+
+
+
+
+
+
+        //send response
+
 
         const {
             _id,
@@ -91,6 +98,37 @@ exports.signin = (req, res) => {
 
 
 }
+
+
+
+
+
 exports.signout = (req, res) => {
-    res.send('user is signed out')
+    res.clearCookie("token")
+    res.json({
+        msg: "User signOut success"
+    })
+}
+
+
+exports.isSignedIn = expressJwt({
+    secret: process.env.SECRET,
+
+})
+
+exports.isAuthenticated = (req, res, next) => {
+    let checker = req.profile && req.user && req.profile._id === req.user.id;
+
+    if (!checker) {
+        return res.status(403).send('ACCESS DENIED');
+    }
+    next();
+
+}
+
+exports.isAdmin = (req, res, next) => {
+    if (req.profile.role == 0) {
+        return res.status(403).send('ACCESS DENIED');
+    }
+    next();
 }

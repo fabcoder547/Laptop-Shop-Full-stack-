@@ -6,7 +6,9 @@ const {
 const {
     signup,
     signout,
-    signin
+    signin,
+    isSignedIn,
+    isAuthenticated,
 } = require('../controllers/auth')
 
 // SIGNUP :: POST :: PUBLIC
@@ -26,6 +28,17 @@ router.post('/signin', [
     check("password").isLength(1).withMessage("Password is required"),
 ], signin)
 
+
+
+
 router.get('/signout', signout)
+
+router.get('/test', isSignedIn, (req, res) => {
+    console.log(req.user);
+    console.log(req.cookies['token'])
+
+    res.send('Protected route done')
+})
+
 
 module.exports = router;
