@@ -8,8 +8,12 @@ const app = express();
 const bodyparser = require('body-parser');
 const cookieparser = require('cookie-parser');
 const cors = require("cors");
-
+//myroutes
 const authRouters = require('./routes/auth');
+const userRoutes = require('./routes/user');
+const brandRoutes = require('./routes/brand');
+const productRoutes = require('./routes/product');
+
 
 
 // connecting to the Database....
@@ -26,11 +30,16 @@ mongoose.connect(process.env.DATABASE, {
 })
 
 // MIDDLEWARES ARE HERE
-app.use(bodyparser.urlencoded({ extended: false }))
+app.use(bodyparser.urlencoded({
+    extended: false
+}))
 app.use(bodyparser.json());
 app.use(cookieparser());
 app.use(cors())
 app.use('/api', authRouters);
+app.use('/api', userRoutes);
+app.use('/api', brandRoutes);
+app.use('/api', productRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hey Laptop shop');

@@ -8,37 +8,13 @@ const productSchema = new Schema({
         required: true,
         trim: true,
     },
-    description: {
-        brand: {
-            type: Schema.Types.ObjectId,
-            ref: "mybrand",
-            required: true,
-        },
-        processor: {
-            type: Schema.Types.Mixed,
-
-        },
-
-        memory: {
-            ram: {
-                type: Number,
-                trim: true,
-            },
-            rom: {
-                type: Number,
-                trim: true,
-            },
-            display: {
-                type: String,
-                trim: true,
-            }
-        },
-
-
+    decription: {
+        type: String,
+        maxlength: 100,
     },
     photo: {
-        type: Buffer, //read about buffer datatype
-        required: true,
+        data: Buffer, //read about buffer datatype
+
         contentType: String
     },
     price: {
@@ -59,3 +35,32 @@ const productSchema = new Schema({
     timestamps: true
 });
 module.exports = mongoose.model('myproduct', productSchema);
+
+// description: {
+//     brand: {
+//         type: Schema.Types.ObjectId,
+//         ref: "mybrand",
+//         required: true,
+//     },
+//     processor: {
+//         type: Schema.Types.Mixed,
+
+//     },
+
+//     memory: {
+//         ram: {
+//             type: Number,
+//             trim: true,
+//         },
+//         rom: {
+//             type: Number,
+//             trim: true,
+//         },
+//         display: {
+//             type: String,
+//             trim: true,
+//         }
+//     },
+
+
+// },

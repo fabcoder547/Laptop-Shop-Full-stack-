@@ -33,12 +33,5 @@ router.post('/signin', [
 
 router.get('/signout', signout)
 
-router.get('/test', isSignedIn, (req, res) => {
-    console.log(req.user);
-    console.log(req.cookies['token'])
-
-    res.send('Protected route done')
-})
-
 
 module.exports = router;
