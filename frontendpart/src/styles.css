@@ -1,0 +1,63 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.btn,
+.jumbotron,
+.nav :hover {
+  border-radius: 0px;
+}
+.row {
+  margin: 0;
+  border: 1px solid red;
+}
+
+body {
+  background: #2f363f;
+}
+
+.landinng-div {
+  background-color: #fff;
+  padding-top: 100px;
+  text-align: center;
+  border: 1px solid red;
+}
+.landinng-div .landing-title {
+  font-size: 40px;
+  text-transform: capitalize;
+  color: #d63031;
+  font-weight: 500;
+}
+
+@media (max-width: 960px) {
+  .landinng-div .landing-title {
+    font-size: 58px;
+    letter-spacing: 1px;
+  }
+}
+footer {
+  margin: 0;
+}
+.myfooter {
+  background-color: rgb(255, 255, 255);
+
+  text-align: center;
+}
+.footer-title {
+  color: #d63031;
+  font-size: 30px;
+}
+.footer.desc {
+  color: #fff;
+  font-size: 28px;
+}
+.col-md-4 {
+  height: 100px;
+  border: 1px solid blue;
+}
+.main-content {
+  width: 100%;
+  padding: 20px 25px;
+  background: rgb(116, 16, 16);
+}
