@@ -48,7 +48,7 @@ const Base = ({
         <p className="descripiton">{description}</p>
       </div>
 
-      <div className="container text-center main-content">{children}</div>
+      <div className="container-fluid text-center main-content">{children}</div>
 
       <div className="myfooter">
         <p className="footer-title">Laptop shop</p>

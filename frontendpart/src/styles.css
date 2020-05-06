@@ -10,9 +10,10 @@
 }
 .row {
   margin: 0;
-  border: 1px solid red;
 }
-
+.container {
+  margin: 0;
+}
 body {
   background: #2f363f;
 }
@@ -59,5 +60,5 @@ footer {
 .main-content {
   width: 100%;
   padding: 20px 25px;
-  background: rgb(116, 16, 16);
+  background: rgb(255, 253, 253);
 }

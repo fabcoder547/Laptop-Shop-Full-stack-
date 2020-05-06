@@ -1,8 +1,8 @@
 import React from "react";
 import { API } from "../backend";
 import Base from "./Base";
-const Home = () => {
-  console.log("api is", API);
+const Home = ({ history }) => {
+  console.log(history);
   return (
     <Base>
       <div className="row">
