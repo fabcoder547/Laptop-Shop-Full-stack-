@@ -295,7 +295,7 @@ exports.updateProduct = (req, res) => {
         })
         .catch((err) => {
           res.json({
-            msg: "error in saving into the database",
+            error: "error in saving into the database",
           });
         });
     })
@@ -315,7 +315,7 @@ exports.deleteProduct = (req, res) => {
     })
     .catch((err) => {
       return res.json({
-        msg: "error in removing a product ",
+        error: "error in removing a product ",
       });
     });
 };
@@ -331,12 +331,12 @@ exports.getAllProducts = (req, res) => {
     .exec((err, products) => {
       if (err) {
         return res.json({
-          msg: "error in finding all products",
+          error: "error in finding all products",
         });
       }
       if (!products) {
         return res.json({
-          msg: "No produts yet",
+          error: "No produts yet",
         });
       }
       res.status(200).json({

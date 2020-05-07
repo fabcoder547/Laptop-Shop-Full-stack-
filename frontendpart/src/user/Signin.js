@@ -4,10 +4,10 @@ import Base from "../core/Base";
 import { Link, Redirect } from "react-router-dom";
 
 import { authenticate, isAuthenticated, signin } from "../auth/helper";
-const Signin = () => {
+const Signin = ({ history, location }) => {
   // console.log(nest);
-  // console.log(history.location);
-  // console.log(location.pathname);
+  console.log(history.location);
+  console.log(location.pathname);
   const [values, setValues] = useState({
     email: "atharvjoshi547@gmail.com",
     password: "atharv123",
@@ -66,13 +66,14 @@ const Signin = () => {
   const Redirectuser = () => {
     if (isRedirected) {
       if (user && user.role === 1) {
-        return <p>redirected to admin</p>;
+        return <Redirect to="/admin/dashboard" />;
       } else {
-        return <p>redirected to user dashboard</p>;
+        return <Redirect to="/user/dashboard" />;
       }
     }
 
     if (isAuthenticated()) {
+      console.log(isRedirected + "is this");
       return <Redirect to="/" />;
     }
   };
@@ -144,7 +145,7 @@ const Signin = () => {
   };
 
   return (
-    <Base title={"signin"} description="Welcome again!">
+    <Base title="signin page" description="Welcome again!">
       {loadingMessege()}
       {errorMessege()}
       {signinForm()}

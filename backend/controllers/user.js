@@ -6,11 +6,12 @@ exports.getUserById = (req, res, next, id) => {
   User.findById(id).exec((err, user) => {
     if (err || !user) {
       return res.status(400).json({
-        msg: "No user found in DB",
+        error: "No user found in DB",
       });
+    } else {
+      req.profile = user;
+      next();
     }
-    req.profile = user;
-    next();
   });
 };
 //Most Important here

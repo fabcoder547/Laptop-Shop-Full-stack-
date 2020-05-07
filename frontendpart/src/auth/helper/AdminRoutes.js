@@ -7,10 +7,7 @@ const AdminRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={(props) => {
-        {
-          console.log(props.location);
-        }
+      render={(props) =>
         isAuthenticated() && isAuthenticated().user.role === 1 ? (
           <Component {...props} />
         ) : (
@@ -20,8 +17,8 @@ const AdminRoute = ({ component: Component, ...rest }) => {
               state: { from: props.location },
             }}
           />
-        );
-      }}
+        )
+      }
     />
   );
 };
