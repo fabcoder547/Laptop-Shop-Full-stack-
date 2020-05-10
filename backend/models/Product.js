@@ -17,7 +17,10 @@ const productSchema = new Schema(
       processor: {
         type: Schema.Types.Mixed,
       },
-
+      display: {
+        type: String,
+        trim: true,
+      },
       memory: {
         ram: {
           type: Number,
@@ -25,10 +28,6 @@ const productSchema = new Schema(
         },
         rom: {
           type: Number,
-          trim: true,
-        },
-        display: {
-          type: String,
           trim: true,
         },
       },

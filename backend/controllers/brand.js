@@ -6,9 +6,10 @@ exports.getBrandById = (req, res, next, id) => {
       return res.status(400).json({
         error: "Error in finding brand by id",
       });
+    } else {
+      req.brand = brand;
+      next();
     }
-    req.brand = brand;
-    next();
   });
 };
 
@@ -63,8 +64,9 @@ exports.updateBrand = (req, res) => {
         return res.status(400).json({
           error: "error in updating brand",
         });
+      } else {
+        res.json(brand);
       }
-      res.json(brand);
     }
   );
 };

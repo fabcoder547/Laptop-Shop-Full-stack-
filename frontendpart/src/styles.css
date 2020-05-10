@@ -10,6 +10,7 @@
 }
 .row {
   margin: 0;
+  width: 100%;
 }
 .container {
   margin: 0;
@@ -53,12 +54,13 @@ footer {
   color: #fff;
   font-size: 28px;
 }
-.col-md-4 {
-  height: 100px;
-  border: 1px solid blue;
-}
+
 .main-content {
   width: 100%;
   padding: 20px 25px;
   background: rgb(255, 253, 253);
+}
+
+.card {
+  margin: 10px;
 }

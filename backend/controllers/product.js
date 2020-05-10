@@ -200,9 +200,10 @@ exports.getProductById = (req, res, next, id) => {
       return res.status(400).json({
         msg: "Cannot find product by Id",
       });
+    } else {
+      req.product = product;
+      next();
     }
-    req.product = product;
-    next();
   });
 };
 
@@ -223,6 +224,7 @@ exports.photo = (req, res, next) => {
 };
 
 exports.createProduct = (req, res) => {
+  console.log("i got it");
   const newLaptop = {};
   const description = {};
   description.memory = {};
@@ -230,7 +232,8 @@ exports.createProduct = (req, res) => {
   if (req.body.price) newLaptop.price = req.body.price;
   if (req.body.stock) newLaptop.stock = req.body.stock;
   if (req.body.processor) description.processor = req.body.processor;
-  if (req.body.ram) description.memory.ram = req.body.stock;
+  if (req.body.ram) description.memory.ram = req.body.ram;
+  if (req.body.display) description.display = req.body.display;
   if (req.body.rom) description.memory.rom = req.body.rom;
   if (req.body.brand) description.brand = req.body.brand;
   newLaptop.photo = {};
@@ -238,6 +241,7 @@ exports.createProduct = (req, res) => {
   const newproduct = new Product(newLaptop);
   newproduct.photo.data = req.file.buffer;
   newproduct.photo.contentType = req.file.mimetype;
+
   console.log(req.file);
 
   newproduct
@@ -251,7 +255,8 @@ exports.createProduct = (req, res) => {
     .catch((err) => {
       res.json({
         error: "error in saving",
-        file: req.file.path,
+        err,
+        file: req.file.fieldname,
       });
     });
 };
@@ -266,7 +271,8 @@ exports.updateProduct = (req, res) => {
   if (req.body.price) newLaptop.price = req.body.price;
   if (req.body.stock) newLaptop.stock = req.body.stock;
   if (req.body.processor) description.processor = req.body.processor;
-  if (req.body.ram) description.memory.ram = req.body.stock;
+  if (req.body.ram) description.memory.ram = req.body.ram;
+  if (req.body.display) description.display = req.body.display;
   if (req.body.rom) description.memory.rom = req.body.rom;
   if (req.body.brand) description.brand = req.body.brand;
   newLaptop.photo = {};
@@ -282,7 +288,7 @@ exports.updateProduct = (req, res) => {
     {
       $set: newLaptop,
     },
-    { new: true }
+    { new: true, useFindAndModify: true }
   )
     .then((product) => {
       product

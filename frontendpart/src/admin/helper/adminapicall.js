@@ -17,8 +17,60 @@ export const addBrand = (name, token, id) => {
 };
 
 export const getAllBrands = () => {
-  fetch(`${API}/brands`, {
+  return fetch(`${API}/brands`, {
     method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+//deletebrand
+
+export const deleteBrand = (brandId, id, token) => {
+  return fetch(`${API}/brand/${brandId}/user/${id}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      Authorization: `bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+//get a brand
+export const getBrand = (brandId) => {
+  return fetch(`${API}/brand/${brandId}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+//update brand
+
+export const updateBrand = (brandId, id, token, newBrand) => {
+  return fetch(`${API}/brand/${brandId}/user/${id}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `bearer ${token}`,
+    },
+    body: JSON.stringify(newBrand),
   })
     .then((response) => {
       return response.json();
@@ -50,7 +102,7 @@ export const createProduct = (product, token, id) => {
 //delete a  product
 
 export const deleteProduct = (productId, token, id) => {
-  return fetch(`${API}/product/delete/${productId}/:${id}`, {
+  return fetch(`${API}/product/delete/${productId}/${id}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
@@ -83,8 +135,6 @@ export const updateProduct = (productId, token, id, newproduct) => {
   return fetch(`${API}/product/update/${productId}/${id}`, {
     method: "PUT",
     headers: {
-      Accept: "application/json",
-
       Authorization: `bearer ${token}`,
     },
     body: newproduct,
