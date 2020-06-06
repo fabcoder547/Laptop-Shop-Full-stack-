@@ -14,7 +14,10 @@ exports.getBrandById = (req, res, next, id) => {
 };
 
 exports.createBrand = (req, res) => {
-  const newbrand = new Brand(req.body);
+  const objBrand = {};
+  objBrand.name = req.body.name;
+  objBrand.user = req.profile._id;
+  const newbrand = new Brand(objBrand);
 
   newbrand.save((err, brand) => {
     if (err) {
@@ -35,6 +38,20 @@ exports.getBrand = (req, res) => {
 
 exports.getAllBrands = (req, res) => {
   Brand.find().exec((err, brands) => {
+    if (err) {
+      return res.status(400).json({
+        error: "no brands found",
+      });
+    }
+    res.json({
+      messsege: "All Brands",
+      brands,
+    });
+  });
+};
+
+exports.getAllBrandsOfAdmin = (req, res) => {
+  Brand.find({ user: req.profile._id }).exec((err, brands) => {
     if (err) {
       return res.status(400).json({
         error: "no brands found",

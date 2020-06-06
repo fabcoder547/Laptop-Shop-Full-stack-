@@ -90,6 +90,8 @@ exports.showOrders = (req, res) => {
 };
 
 exports.pushOrderInpurchaselist = (req, res, next) => {
+  console.log("purchases", req.body.order);
+
   purchases = [];
   req.body.order.orders.forEach((laptop) => {
     purchases.push({

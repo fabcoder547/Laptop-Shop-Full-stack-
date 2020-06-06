@@ -20,7 +20,7 @@ const orderSchema = new Schema(
     amount: {
       type: Number,
     },
-    adress: {
+    address: {
       type: String,
     },
     updated: {

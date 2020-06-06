@@ -1,6 +1,6 @@
 const Product = require("../models/Product");
 const formidable = require("formidable");
-// const _ = require("lodash");
+const _ = require("lodash");
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
@@ -226,6 +226,7 @@ exports.photo = (req, res, next) => {
 exports.createProduct = (req, res) => {
   console.log("i got it");
   const newLaptop = {};
+  newLaptop.user = req.profile._id;
   const description = {};
   description.memory = {};
   if (req.body.name) newLaptop.name = req.body.name;
@@ -270,43 +271,59 @@ exports.updateProduct = (req, res) => {
   if (req.body.name) newLaptop.name = req.body.name;
   if (req.body.price) newLaptop.price = req.body.price;
   if (req.body.stock) newLaptop.stock = req.body.stock;
-  if (req.body.processor) description.processor = req.body.processor;
-  if (req.body.ram) description.memory.ram = req.body.ram;
-  if (req.body.display) description.display = req.body.display;
-  if (req.body.rom) description.memory.rom = req.body.rom;
-  if (req.body.brand) description.brand = req.body.brand;
+
+  if (!req.body.ram && originalProduct.description.memory.ram) {
+    description.memory.ram = originalProduct.description.memory.ram;
+  } else {
+    description.memory.ram = req.body.ram;
+  }
+  if (!req.body.rom && originalProduct.description.memory.rom) {
+    description.memory.rom = originalProduct.description.memory.rom;
+  } else {
+    description.memory.rom = req.body.rom;
+  }
+
+  if (!req.body.processor && originalProduct.description.processor) {
+    description.processor = originalProduct.description.processor;
+  } else {
+    description.processor = req.body.processor;
+  }
+
+  if (!req.body.brand && originalProduct.description.brand) {
+    description.brand = originalProduct.description.brand;
+  } else {
+    description.brand = req.body.brand;
+  }
+  if (!req.body.display && originalProduct.description.display) {
+    description.display = originalProduct.description.display;
+  } else {
+    description.display = req.body.display;
+  }
+
   newLaptop.photo = {};
   newLaptop.description = description;
 
-  if (req.file) {
+  if (!req.file && originalProduct.photo.data) {
+    newLaptop.photo.data = originalProduct.photo.data;
+    newLaptop.photo.contentType = originalProduct.photo.contentType;
+  } else {
     newLaptop.photo.data = req.file.buffer;
     newLaptop.photo.contentType = req.file.mimetype;
   }
+  _.extend(originalProduct, newLaptop);
 
-  Product.findOneAndUpdate(
-    { _id: req.product._id },
-    {
-      $set: newLaptop,
-    },
-    { new: true, useFindAndModify: true }
-  )
+  originalProduct
+    .save()
     .then((product) => {
-      product
-        .save()
-        .then((product) => {
-          res.json({
-            msg: "updated successfully",
-            product,
-          });
-        })
-        .catch((err) => {
-          res.json({
-            error: "error in saving into the database",
-          });
-        });
+      res.json({
+        msg: "Updated successfully",
+        product: product,
+      });
     })
     .catch((err) => {
-      res.json(err);
+      res.json({
+        error: "Error in saving a product",
+      });
     });
 };
 
@@ -328,8 +345,35 @@ exports.deleteProduct = (req, res) => {
 
 exports.getAllProducts = (req, res) => {
   var limit = req.query.limit ? parseInt(req.query.limit) : 8;
-  var sortBy = req.query.sortby ? req.query.sortby : "_id";
+  var sortwith = req.query.sortby ? req.query.sortby : "price";
+
   Product.find()
+    .populate("description.brand")
+    .limit(limit)
+    .sort([[sortwith, -1]])
+    .select("-photo")
+    .exec((err, products) => {
+      if (err) {
+        return res.json({
+          error: "error in finding all products",
+        });
+      }
+      if (!products) {
+        return res.json({
+          error: "No produts yet",
+        });
+      }
+      res.status(200).json({
+        msg: "Done",
+        products,
+      });
+    });
+};
+
+exports.getAllProductsOfAdmin = (req, res) => {
+  var limit = req.query.limit ? parseInt(req.query.limit) : 8;
+  var sortBy = req.query.sortby ? req.query.sortby : "_id";
+  Product.find({ user: req.profile._id })
     .populate("description.brand")
     .limit(limit)
     .sort({ sortBy: -1 })
@@ -365,6 +409,7 @@ exports.getUniqueBrands = (req, res) => {
 
 exports.updateStock = (req, res, next) => {
   //In your Schema thereis orders and in his file products
+  console.log("update ", req.body.orders);
   let myOperations = req.body.order.orders.map((order) => {
     return {
       updatrOne: {

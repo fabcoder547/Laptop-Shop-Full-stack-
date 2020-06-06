@@ -9,6 +9,10 @@ const productSchema = new Schema(
       required: true,
       trim: true,
     },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "myuser",
+    },
     description: {
       brand: {
         type: Schema.Types.ObjectId,
@@ -46,6 +50,10 @@ const productSchema = new Schema(
       type: Number,
     },
     sold: {
+      type: Number,
+      default: 0,
+    },
+    count: {
       type: Number,
       default: 0,
     },

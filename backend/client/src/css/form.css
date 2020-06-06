@@ -1,0 +1,19 @@
+form {
+  border-radius: 10px;
+  width: 100%;
+  padding: 20px 10px;
+  background-color: #2a2f3a;
+}
+
+form .form-group input {
+  width: 100%;
+  padding: 7px 7px;
+  border-radius: 10px;
+
+  margin: 10px 5px;
+}
+.signupbtn {
+  color: #fff;
+  border-radius: 10px;
+  padding: 7px 35px;
+}

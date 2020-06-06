@@ -63,6 +63,7 @@ const {
   deleteProduct,
   updateProduct,
   getAllProducts,
+  getAllProductsOfAdmin,
   getUniqueBrands,
 } = require("../controllers/product");
 
@@ -99,5 +100,6 @@ router.delete(
 );
 
 router.get("/allProducts", getAllProducts);
+router.get("/allProducts/admin/:id", getUserById, getAllProductsOfAdmin);
 router.get("/brands", getUniqueBrands);
 module.exports = router;
