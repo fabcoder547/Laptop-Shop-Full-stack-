@@ -15,6 +15,7 @@ const productRoutes = require("./routes/product");
 const orderRoutes = require("./routes/order");
 const stripeRoutes = require("./routes/stripePayment");
 // connecting to the Database....
+// mongodb://localhost:27017/laptop
 mongoose
   .connect(process.env.MONGODB_URI || process.env.DATABASE, {
     useNewUrlParser: true,
@@ -25,7 +26,8 @@ mongoose
     console.log("connected successfully");
   })
   .catch((err) => {
-    console.log("not connected");
+    console.log(process.env.DATABASE);
+    console.log("not connected", err.message);
   });
 
 // MIDDLEWARES ARE HERE
