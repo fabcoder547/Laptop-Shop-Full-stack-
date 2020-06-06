@@ -1,1 +1,0 @@
-# Laptop-showroom-full-stack-project
