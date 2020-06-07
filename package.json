@@ -4,7 +4,11 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+  },
+  "engines": {
+    "node": "10.16.3"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +32,5 @@
     "npm": "^6.13.0",
     "stripe": "^8.55.0",
     "uuid": "^3.3.3"
-  },
-  "proxy": "http://localhost:5000"
+  }
 }

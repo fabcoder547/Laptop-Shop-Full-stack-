@@ -13,15 +13,13 @@
     "react-scripts": "3.4.1",
     "react-stripe-checkout": "^2.6.3"
   },
-  "engines": {
-    "node": "10.16.3"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": "react-app"
   },
