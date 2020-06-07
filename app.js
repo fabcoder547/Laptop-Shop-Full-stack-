@@ -1,3 +1,4 @@
+require("dotenv").config();
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 const mongoose = require("mongoose");
@@ -53,8 +54,6 @@ if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
   });
-} else {
-  require("dotenv").config();
 }
 
 app.listen(PORT, () => {
