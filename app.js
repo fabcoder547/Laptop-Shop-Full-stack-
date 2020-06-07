@@ -45,14 +45,14 @@ app.use("/api", brandRoutes);
 app.use("/api", productRoutes);
 app.use("/api", orderRoutes);
 app.use("/api", stripeRoutes);
-app.get("/", (req, res) => {
-  res.send("Hey Laptop shop");
-});
-console.log(path.join(__dirname, "client", "build", "index.html"));
 app.use(express.static(path.join(__dirname, "client", "build")));
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
+// app.get("/", (req, res) => {
+//   res.send("Hey Laptop shop");
+// });
+console.log(path.join(__dirname, "client", "build", "index.html"));
 
 app.listen(PORT, () => {
   console.log("server is running at 5000");
