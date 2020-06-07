@@ -28,5 +28,6 @@
     "npm": "^6.13.0",
     "stripe": "^8.55.0",
     "uuid": "^3.3.3"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }
