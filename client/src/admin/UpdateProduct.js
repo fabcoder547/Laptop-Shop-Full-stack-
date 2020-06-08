@@ -210,7 +210,7 @@ const UpdateProduct = ({ match }) => {
             }
             height="120px"
             width="100px"
-          /> 
+          />
           <div className="form-group">
             <input
               onChange={handleChange("photo")}

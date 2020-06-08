@@ -6,8 +6,7 @@ import { Link, Redirect } from "react-router-dom";
 import { authenticate, isAuthenticated, signin } from "../auth/helper";
 const Signin = ({ history, location }) => {
   // console.log(nest);
-  console.log(history.location);
-  console.log(location.pathname);
+
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -29,7 +28,6 @@ const Signin = ({ history, location }) => {
     setValues({ ...values, isRedirected: false, error: false, loading: true });
     signin({ email, password })
       .then((data) => {
-        console.log(data);
         if (data.err) {
           alert("signin failed!try again");
           setValues({

@@ -39,7 +39,6 @@ exports.makePayment = (req, res) => {
           { idempotencyKey }
         )
         .then((result) => {
-          console.log("Ia m happy");
           res.status(200).json({
             result,
           });

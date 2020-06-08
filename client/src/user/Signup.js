@@ -39,7 +39,6 @@ const Signup = () => {
     signup({ name, email, password, userinfo, lastname, role })
       .then((data) => {
         if (data.err) {
-          console.log(data);
           alert("failed");
           setValues({
             ...values,
@@ -53,8 +52,6 @@ const Signup = () => {
             success: false,
           });
         } else {
-          console.log(data);
-
           alert("success");
           setValues({
             ...values,
@@ -69,7 +66,10 @@ const Signup = () => {
         }
       })
       .catch((err) => {
-        console.log("error in signup  " + err);
+        setValues({
+          ...values,
+          error: err.message,
+        });
       });
   };
 

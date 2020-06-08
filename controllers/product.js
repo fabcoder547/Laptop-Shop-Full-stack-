@@ -224,7 +224,6 @@ exports.photo = (req, res, next) => {
 };
 
 exports.createProduct = (req, res) => {
-  console.log("i got it");
   const newLaptop = {};
   newLaptop.user = req.profile._id;
   const description = {};
@@ -242,8 +241,6 @@ exports.createProduct = (req, res) => {
   const newproduct = new Product(newLaptop);
   newproduct.photo.data = req.file.buffer;
   newproduct.photo.contentType = req.file.mimetype;
-
-  console.log(req.file);
 
   newproduct
     .save()
@@ -409,7 +406,7 @@ exports.getUniqueBrands = (req, res) => {
 
 exports.updateStock = (req, res, next) => {
   //In your Schema thereis orders and in his file products
-  console.log("update ", req.body.orders);
+
   let myOperations = req.body.order.orders.map((order) => {
     return {
       updatrOne: {
