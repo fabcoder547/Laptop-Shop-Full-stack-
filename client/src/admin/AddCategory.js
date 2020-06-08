@@ -30,7 +30,7 @@ const Addbrand = () => {
         }
       })
       .catch((err) => {
-        alert("error in calling api");
+        alert(err.message);
       });
   };
 

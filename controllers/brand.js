@@ -14,6 +14,7 @@ exports.getBrandById = (req, res, next, id) => {
 };
 
 exports.createBrand = (req, res) => {
+  console.log("brand here");
   const objBrand = {};
   objBrand.name = req.body.name;
   objBrand.user = req.profile._id;

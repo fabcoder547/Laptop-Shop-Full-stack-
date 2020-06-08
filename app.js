@@ -55,5 +55,5 @@ app.get("*", (req, res) => {
 console.log(path.join(__dirname, "client", "build", "index.html"));
 
 app.listen(PORT, () => {
-  console.log("server is running at 5000");
+  console.log(`server is running at ${PORT}`);
 });
