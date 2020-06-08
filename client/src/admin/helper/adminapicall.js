@@ -1,7 +1,7 @@
 import { API } from "../../backend";
 
 export const addBrand = (name, token, id) => {
-  return fetch(`${API}/brands/create/${id}`, {
+  return fetch(`api/brands/create/${id}`, {
     method: "POST",
     headers: {
       Accept: "application/json",
