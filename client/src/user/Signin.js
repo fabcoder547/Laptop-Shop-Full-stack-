@@ -29,6 +29,7 @@ const Signin = ({ history, location }) => {
     setValues({ ...values, isRedirected: false, error: false, loading: true });
     signin({ email, password })
       .then((data) => {
+        console.log(data);
         if (data.err) {
           alert("signin failed!try again");
           setValues({
