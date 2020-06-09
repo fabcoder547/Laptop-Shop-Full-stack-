@@ -39,19 +39,24 @@ const Home = ({ history }) => {
 
   return (
     <Base title="Home Page" description="All you want is here!">
+      <div className="row ">
+        <select
+          onChange={handelChange}
+          defaultValue="price"
+          className="form-control mt-3 mb-2 sort"
+          style={{ width: "100%", float: "left", color: "#fff" }}
+        >
+          <option value="_id">Id</option>
+          <option value="price">price</option>
+          <option value="name">name</option>
+        </select>
+        <br />
+      </div>
       <div className="row" style={{ width: "100%", textAlign: "center" }}>
-        <div style={{ width: "100%", padding: "5px" }} className=" bg-dark">
-          <select
-            onChange={handelChange}
-            defaultValue="price"
-            className="form-control mt-3 sort"
-            style={{ width: "20%", float: "left" }}
-          >
-            <option value="_id">Id</option>
-            <option value="price">price</option>
-            <option value="name">name</option>
-          </select>
-
+        <div
+          style={{ width: "100%", padding: "5px" }}
+          className=" bg-dark home-header"
+        >
           <h4
             style={{
               margin: "20px auto",
@@ -66,11 +71,9 @@ const Home = ({ history }) => {
         </div>
 
         <div
-          className="row"
+          className="row home-main-content"
           style={{
             textAlign: "center",
-            paddingLeft: "60px",
-            paddingRight: "20px",
           }}
         >
           {products.map((product, index) => (

@@ -46,7 +46,7 @@ const Signin = ({ history, location }) => {
           });
         } else {
           authenticate(data, () => {
-            alert("Signup successfully!");
+            alert("Signedin successfully!");
             setValues({
               ...values,
               email: "",
@@ -67,7 +67,7 @@ const Signin = ({ history, location }) => {
       if (user && user.role === 1) {
         return <Redirect to="/admin/dashboard" />;
       } else {
-        return <Redirect to="/user/dashboard" />;
+        return <Redirect to="/home" />;
       }
     }
 

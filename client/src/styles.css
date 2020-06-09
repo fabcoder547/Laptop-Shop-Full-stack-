@@ -2,7 +2,9 @@
   padding: 0;
   margin: 0;
 }
-
+body {
+  font-family: "Roboto", sans-serif;
+}
 .btn,
 .jumbotron,
 .nav :hover {
@@ -20,6 +22,7 @@
 /* } */
 
 .landinng-div {
+  width: 100%;
   background-color: #333945;
   padding-top: 100px;
   padding-bottom: 20px;
@@ -27,12 +30,14 @@
   text-align: center;
 }
 .landinng-div .landing-title {
-  font-size: 35px;
+  font-size: 30px;
   text-transform: capitalize;
   color: #d63031;
   font-weight: 500;
 }
-
+.landinng-div .descripiton {
+  font-size: 15px;
+}
 @media (min-width: 960px) {
   .landinng-div .landing-title {
     font-size: 58px;
@@ -67,25 +72,144 @@ footer {
 
 .main-content {
   width: 100%;
+  padding: 0;
+  margin: 0 auto;
+
   padding: 20px 25px;
   background: rgb(255, 253, 253);
 }
 .card {
-  margin: 10px 20px;
+  margin: 10px 5px;
 }
 .sort {
   background-color: #333945;
   color: #fff;
 }
 .sort:hover,
-.sort:active {
+.sort:active,
+.sort:focus {
   background-color: #333945;
   color: #fff;
 }
+
+.admin-list {
+  width: 100%;
+  margin: 5px auto;
+}
+.adminLeftSide h5 {
+  width: 100%;
+  text-transform: capitalize;
+}
+
+@media (max-width: 1000px) {
+  .admin-list .admin-list-item a {
+    font-size: 14px;
+
+    padding: 0;
+    color: red;
+  }
+}
 @media (max-width: 480px) {
-  .sort {
-    background-color: #333945;
-    color: #fff;
+  .landinng-div .landing-title {
+    font-size: 27px;
+  }
+  .landinng-div .descripiton {
     font-size: 10px;
+  }
+  .main-content {
+    margin: 10px auto;
+  }
+  .card {
+    text-transform: capitalize;
+    margin: 5px 5px;
+    width: 350px;
+  }
+  .admin-list {
+    width: 90%;
+  }
+  .admin-list .admin-list-item a {
+    font-size: 12px;
+
+    padding: 0;
+    color: red;
+  }
+  .adminRightSide .card h4 {
+    font-size: 20px;
+  }
+}
+.cart-header {
+  font-size: 35px;
+}
+.adminLeftSide {
+  text-align: center;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
+}
+.adminRightSide {
+  text-align: center;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
+}
+.adminLeftSide .card {
+  width: 90%;
+  border-radius: 20px;
+}
+
+.adminRightSide .card {
+  width: 90%;
+  border-radius: 20px;
+}
+
+.home-main-content {
+  text-align: center;
+  padding: 10px 5px;
+}
+
+.home-main-content .card {
+  margin: 5px 5px;
+}
+.cart-produts {
+  text-align: center;
+}
+.cart-produts .card {
+  width: 90%;
+  margin: 8px auto;
+}
+@media (max-width: 530px) {
+  .home-header h4 {
+    font-size: 18px;
+    width: 60%;
+  }
+  .cart-produts h4 {
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .cart-header {
+    font-size: 18px;
+  }
+}
+@media (max-width: 390px) {
+  .home-header h4 {
+    font-size: 15px;
+  }
+  .cart-produts h4 {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .home-main-content .card {
+    width: 300px;
+  }
+  .cart-produts .card {
+    width: 100%;
+  }
+}
+@media (max-width: 760px) {
+  .home-main-content .card {
+    margin: 5px auto;
+  }
+  .cart-header {
+    font-size: 23px;
   }
 }

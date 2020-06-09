@@ -14,7 +14,7 @@ const Home = ({ history }) => {
 
   const loadProducts = () => {
     return (
-      <div>
+      <div className="cart-produts">
         <h4 className="card-header bg-dark text-white">
           Laptops added in Cart
         </h4>
@@ -47,12 +47,12 @@ const Home = ({ history }) => {
   return (
     <Base title="cart Page" description="All you want is here!">
       <div className="row" style={{ width: "100%", textAlign: "center" }}>
-        <h3
+        <h4
           style={{ margin: "20px auto", width: "100%" }}
-          className=" text-white bg-dark"
+          className=" text-white bg-dark cart-header"
         >
-          ALL PRODUCTS
-        </h3>
+          All Products
+        </h4>
         <div className="row">
           <div className="col-md-6">{loadProducts()}</div>
           <div className="col-md-6">

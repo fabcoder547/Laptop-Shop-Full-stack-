@@ -8,24 +8,24 @@ const AdminDashboard = () => {
   const adminLeftSide = () => {
     return (
       <div className="card">
-        <h4 className="card-header bg-dark text-white">admin navigation</h4>
-        <ul className="list-group">
-          <li className="list-group-item bg-dark text-white p-1 m-1">
+        <h5 className="card-header bg-dark text-white">admin navigation</h5>
+        <ul className="list-group admin-list">
+          <li className="list-group-item bg-dark text-white p-1 m-1  admin-list-item">
             <Link to="/admin/create/brand" className="nav-link text-white">
               create brand
             </Link>
           </li>
-          <li className="list-group-item bg-dark text-white p-1 m-1">
+          <li className=" admin-list-item list-group-item bg-dark text-white p-1 m-1">
             <Link to="/admin/brands" className="nav-link text-white">
               Manage Brands
             </Link>
           </li>
-          <li className="list-group-item bg-dark text-white p-1 m-1">
+          <li className="admin-list-item list-group-item bg-dark text-white p-1 m-1">
             <Link to="/admin/create/product" className="nav-link text-white">
               create product
             </Link>
           </li>
-          <li className="list-group-item bg-dark text-white p-1 m-1">
+          <li className=" admin-list-item list-group-item bg-dark text-white p-1 m-1">
             <Link to="/admin/products" className="nav-link text-white">
               manage product
             </Link>
@@ -62,8 +62,8 @@ const AdminDashboard = () => {
       description="manage all your products here"
     >
       <div className="row">
-        <div className="col-md-3"> {adminLeftSide()}</div>
-        <div className="col-md-9"> {adminRightSide()}</div>
+        <div className="col-md-4 adminLeftSide"> {adminLeftSide()}</div>
+        <div className="col-md-8 adminRightSide"> {adminRightSide()}</div>
       </div>
     </Base>
   );
