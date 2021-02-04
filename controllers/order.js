@@ -14,6 +14,10 @@ exports.getOrderById = (req, res, next, orderId) => {
     });
 };
 
+exports.getOrder=(req,res)=>{
+  res.status(200).send(req.order)
+}
+
 exports.createOrder = (req, res) => {
   req.body.order.user = req.profile;
 
@@ -32,7 +36,7 @@ exports.getAllOrders = (req, res) => {
   Order.find()
     .populate("user")
     .then((orders) => {
-      res.json(orders);
+      res.status(200).json(orders);
     })
     .catch((err) => {
       res.status(400).json({
@@ -48,22 +52,41 @@ exports.getOrderStatus = (req, res) => {
 
 exports.updateStatus = (req, res) => {
   //
-  Order.update(
+  Order.findOneAndUpdate(
     {
       _id: req.body.order.orderId,
     },
     {
-      $set: {
-        status: req.body.status,
-      },
+        status: req.body.status
     },
+    {new:true},
     (err, order) => {
       if (err) {
         return res.status(400).json({
           error: "Cannot update order status",
         });
       }
-      res.json(order);
-    }
+     if(order)
+     {
+    
+        res.status(200).json(order);
+     }
+    } 
   );
 };
+
+
+
+exports.getOrdersOfUser=(req,res)=>{
+console.log('hi')
+  Order.find({user:req.profile._id})
+  .populate('user')
+  .then(orders=>{
+    console.log(orders)
+    res.send(orders)
+  })
+  .catch(err=>{
+    console.log(err)
+  })
+
+}

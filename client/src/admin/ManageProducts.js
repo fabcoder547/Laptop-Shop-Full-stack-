@@ -7,9 +7,12 @@ import {
   deleteProduct,
 } from "./helper/adminapicall";
 import { isAuthenticated } from "../auth/helper";
+import { set } from "lodash";
+import Loader from "react-spinners/BounceLoader";
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setloading] = useState(false);
   const [values, setValues] = useState({
     error: false,
     success: false,
@@ -17,8 +20,10 @@ const ManageProducts = () => {
   const { user, token } = isAuthenticated();
 
   const preload = () => {
+    setloading(true);
     getAllProductsOfAdmin(user._id)
       .then((data) => {
+        setloading(false);
         if (data.error) {
           alert("error");
         } else {
@@ -26,6 +31,7 @@ const ManageProducts = () => {
         }
       })
       .catch((err) => {
+        setloading(false);
         console.log(err);
       });
   };
@@ -35,8 +41,10 @@ const ManageProducts = () => {
   }, []);
 
   const onSubmit = (pid) => {
+    setloading(true);
     deleteProduct(pid, token, user._id)
       .then((data) => {
+        setloading(false);
         if (data == undefined) {
           return alert("data undefined");
         }
@@ -48,6 +56,7 @@ const ManageProducts = () => {
         }
       })
       .catch((err) => {
+        setloading(false);
         console.log(err);
       });
   };

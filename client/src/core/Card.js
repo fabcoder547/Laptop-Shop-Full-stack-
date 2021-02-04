@@ -59,10 +59,9 @@ const Card = ({
   const cardPrice = product ? product.price : "Default";
   const ram = product ? product.description.memory.ram : "none";
   const rom = product ? product.description.memory.rom : "none";
-  const brand = product.description.brand
-    ? product.description.brand.name
-    : "Not defined";
-  const display = product ? product.description?.display : "Default";
+  const brand = product.description.brand ? product.description.brand.name : "Not defined";
+  
+  const display = product ? product.description.display : "Default";
 
   return (
     <div className="card text-white bg-dark border border-info ">
@@ -92,6 +91,8 @@ const Card = ({
       </div>
     </div>
   );
+
+  // return(<h1>this is product</h1>)
 };
 
 export default Card;

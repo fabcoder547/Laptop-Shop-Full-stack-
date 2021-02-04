@@ -11,7 +11,7 @@ const {
 const {
     isAuthenticated,
     isAdmin,
-    isSignedIn,
+    isSignedIn, 
 
 } = require('../controllers/auth');
 

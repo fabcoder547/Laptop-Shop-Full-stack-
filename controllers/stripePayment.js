@@ -17,6 +17,7 @@ exports.makePayment = (req, res) => {
       description: "a test account",
     })
     .then((customer) => {
+      console.log(customer)
       stripe.charges
         .create(
           {
@@ -27,7 +28,7 @@ exports.makePayment = (req, res) => {
             description: "a test account",
             shipping: {
               name: token.card.name,
-              address: {
+              address: { 
                 line1: token.card.address_line1,
                 line2: token.card.address_line2,
                 city: token.card.address_city,
@@ -39,8 +40,10 @@ exports.makePayment = (req, res) => {
           { idempotencyKey }
         )
         .then((result) => {
+          console.log(result)
           res.status(200).json({
             result,
+            
           });
         })
         .catch((err) => console.log("err ", err));

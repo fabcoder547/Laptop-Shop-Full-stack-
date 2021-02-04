@@ -14,6 +14,13 @@ import ManageProducts from "./admin/ManageProducts";
 import UpdateProduct from "./admin/UpdateProduct";
 import UpdateBrand from "./admin/updateBrand";
 import Cart from "./core/Cart";
+import Orders from "./admin/Orders";
+import UserOrders from "./user/Orders"
+import UpdateOrder from "./admin/helper/UpdateOrder";
+import Activate from "./user/Activate";
+import Forgetpassword from "./user/Forgetpassword";
+import Resetpassword from "./user/Resetpassword";
+
 // import "./styles.css";
 // import "./nav.css";
 const Routes = () => {
@@ -23,12 +30,15 @@ const Routes = () => {
         <Route path="/" exact component={Home}></Route>
         <Route path="/signup" exact component={Signup}></Route>
         <Route path="/signin" exact component={Signin}></Route>
-
+        <Route path="/users/activate/:token" exact component={Activate}/>
+        <Route path="/users/forget/password" exact component={Forgetpassword}/>
+        <Route path="/users/reset/password/:token" exact component={Resetpassword}/>
         <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
         <AdminRoute path="/admin/create/brand" exact component={Addbrand} />
         <AdminRoute path="/admin/brands" exact component={ManageBrands} />
         <AdminRoute path="/admin/create/product" exact component={AddProduct} />
         <AdminRoute path="/admin/products" exact component={ManageProducts} />
+        <AdminRoute path="/admin/orders" exact component={Orders}/>
         <AdminRoute
           path="/admin/product/update/:productId"
           exact
@@ -39,7 +49,9 @@ const Routes = () => {
           exact
           component={UpdateBrand}
         ></AdminRoute>
+        <AdminRoute path="/admin/order/update/:orderId" component={UpdateOrder} exact/>
         <PrivateRoute path="/cart" component={Cart}></PrivateRoute>
+        <PrivateRoute path="/user/orders" exact component={UserOrders}></PrivateRoute>
       </Switch>
     </Router>
   );

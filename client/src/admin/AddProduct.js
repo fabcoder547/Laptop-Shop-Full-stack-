@@ -3,7 +3,10 @@ import Base from "../core/Base";
 import { Link } from "react-router-dom";
 import { getAllBrands, createProduct } from "./helper/adminapicall";
 import { isAuthenticated } from "../auth/helper";
+import swal from "sweetalert"
 const AddProduct = () => {
+
+  const [productPic,setProductPic]=useState("https://www.sackettwaconia.com/wp-content/uploads/default-profile.png")
   const [values, setValues] = useState({
     name: "",
     processor: "",
@@ -72,7 +75,14 @@ const AddProduct = () => {
     createProduct(formData, token, user._id)
       .then((data) => {
         if (data == undefined) {
-          setValues({ ...values, error: "not able to create product" });
+          setValues({ ...values, error: "Not able to create product" });
+          swal({
+  title: "Something went wrong",
+  text: "Not able to create product",
+  icon: "error",
+  buttons: true,
+  dangerMode: true,
+})
         } else if (data.error) {
           setValues({
             ...values,
@@ -80,8 +90,22 @@ const AddProduct = () => {
             loading: false,
             createdProduct: false,
           });
+
+           swal({
+           title: "Something went wrong",
+           text: data.error,
+           icon: "error",
+           buttons: true,
+            dangerMode: true,
+})
         } else {
-          alert("done");
+          
+          swal({
+            title: "Successfully Added",
+             text: "You will have one more product",
+            icon: "success",
+            buttons:true,
+});
           setValues({
             ...values,
             name: "",
@@ -105,34 +129,47 @@ const AddProduct = () => {
       });
   };
 
-  const successMessage = () => {
-    return (
-      <div className="badge badge-success" style={{ width: "100%" }}>
-        <p className="text-white">product added successfully</p>
-      </div>
-    );
-  };
+  // const successMessage = () => {
+  //   return (
+  //     <div className="badge badge-success" style={{ width: "100%" }}>
+  //       <p className="text-white">product added successfully</p>
+  //     </div>
+  //   );
+  // };
 
-  const errorMessage = () => {
-    return (
-      <div className="badge badge-danger" style={{ width: "100%" }}>
-        <p className="text-white">{error}</p>
-      </div>
-    );
-  };
+  // const errorMessage = () => {
+  //   return (
+  //     <div className="badge badge-danger" style={{ width: "100%" }}>
+  //       <p className="text-white">{error}</p>
+  //     </div>
+  //   );
+  // };
 
   const handleChange = (name) => (e) => {
     e.preventDefault();
-    const value = name === "photo" ? e.target.files[0] : e.target.value;
-
+    let value;
+    // const value = name === "photo" ? e.target.files[0] : e.target.value;
+    if(name==="photo")
+    {
+      setProductPic(URL.createObjectURL(e.target.files[0]));
+      value=e.target.files[0];
+    }
+    else{
+      value=e.target.value
+    }
     formData.set(name, value);
     setValues({ ...values, [name]: value });
   };
   const createProductForm = () => (
     <form>
       <div className="row">
-        <div className="col-md-6">
-          <span className="text-danger">Post photo</span>
+            <div className="col-md-12">
+        <img
+            className="img-fluid rounded"
+            src={productPic}
+            width="250px"
+            height="220px"
+          />
           <div className="form-group">
             <input
               onChange={handleChange("photo")}
@@ -142,6 +179,9 @@ const AddProduct = () => {
               placeholder="choose a file"
             />
           </div>
+          
+      </div>
+        <div className="col-md-6">
           <div className="form-group">
             <input
               onChange={handleChange("name")}
@@ -158,6 +198,15 @@ const AddProduct = () => {
               className="form-control"
               placeholder="display"
               value={display}
+            />
+          </div>
+            <div className="form-group">
+            <input
+              onChange={handleChange("stock")}
+              type="number"
+              className="form-control"
+              placeholder="Stock"
+              value={stock}
             />
           </div>
           <div className="form-group">
@@ -186,15 +235,7 @@ const AddProduct = () => {
                 ))}
             </select>
           </div>
-          <div className="form-group">
-            <input
-              onChange={handleChange("stock")}
-              type="number"
-              className="form-control"
-              placeholder="Stock"
-              value={stock}
-            />
-          </div>
+        
           <div className="form-group">
             <input
               onChange={handleChange("processor")}
@@ -240,8 +281,8 @@ const AddProduct = () => {
         Admin Home
       </Link>
       <div className="row bg-dark text-white rounded" style={{ width: "100%" }}>
-        {createdProduct ? successMessage() : ""}
-        {error ? errorMessage() : ""}
+        {/* {createdProduct ? successMessage() : ""} */}
+        {/* {error ? errorMessage() : ""} */}
         {createProductForm()}
       </div>
     </Base>

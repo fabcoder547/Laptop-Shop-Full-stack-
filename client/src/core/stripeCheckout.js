@@ -5,10 +5,14 @@ import { Link } from "react-router-dom";
 import StripeCheckoutButton from "react-stripe-checkout";
 import { API } from "../backend";
 import { createOrder } from "./helper/orederHelper";
-
+import ReactLoading from "react-loading";
+import LoadingOverlay from "react-loading-overlay";
+import BounceLoader from "react-spinners/BounceLoader";
 const StripeCheckout = ({
   products,
   reload = undefined,
+  loading,
+  setloading,
   setReload = (f) => f,
 }) => {
   const tokenm = isAuthenticated().token;
@@ -31,7 +35,6 @@ const StripeCheckout = ({
   };
 
   const makeMypayment = (token) => {
-    console.log(token);
     const body = {
       token,
       products,
@@ -46,16 +49,18 @@ const StripeCheckout = ({
       body: JSON.stringify(body),
     })
       .then((response) => {
-        console.log("Response", response);
+        setloading(true);
 
         const orderData = {
           orders: products,
           address: token.card.address_city,
         };
+
         setData({ ...data, loading: true, success: false });
         createOrder(user._id, tokenm, orderData)
           .then((res) => {
             console.log("response", res);
+            setloading(false);
             setData({ ...data, loading: false, success: true });
           })
           .catch((err) => {
@@ -71,7 +76,6 @@ const StripeCheckout = ({
         setReload(!reload);
       })
       .catch((err) => {
-        console.log("hello");
         console.log(err);
       });
   };
@@ -80,12 +84,17 @@ const StripeCheckout = ({
       <StripeCheckoutButton
         token={makeMypayment}
         name="Pay Here"
-        stripeKey="pk_test_GAIftZRfkg3D2SuN0AE2h8LF00utQ9v2To"
+        stripeKey={process.env.REACT_APP_STRIPE_KEY}
         amount={getFinalAmount() * 0.1}
         shippingAddress
         billingAddress
       >
-        <button className="btn btn-success mt-2">Pay with Stripe</button>
+        <button
+          className="btn btn-outline-success w-90 mt-2"
+          style={{ width: "100%" }}
+        >
+          Pay with Stripe
+        </button>
       </StripeCheckoutButton>
     ) : (
       <Link to="/signin">
@@ -98,7 +107,7 @@ const StripeCheckout = ({
     if (data.success) {
       return (
         <div className="row">
-          <div className="col-md-12 bg-success my-4">
+          <div className="col-md-12 bg-warning p-2 my-4">
             <h5 className="text-white">Order successful!</h5>
           </div>
         </div>
@@ -109,11 +118,10 @@ const StripeCheckout = ({
   const loadingMessage = () => {
     if (data.loading) {
       return (
-        <div className="row">
-          <div className="col-md-12 bg-danger my-4">
-            <h5 className="text-white">loading...</h5>
-          </div>
-        </div>
+        <LoadingOverlay
+          active={data.loading}
+          spinner={<BounceLoader />}
+        ></LoadingOverlay>
       );
     }
   };

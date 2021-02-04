@@ -39,7 +39,7 @@ const Signup = () => {
     signup({ name, email, password, userinfo, lastname, role })
       .then((data) => {
         if (data.err) {
-          alert("failed");
+          
           setValues({
             ...values,
             error: "Error !please try again!",
@@ -52,7 +52,7 @@ const Signup = () => {
             success: false,
           });
         } else {
-          alert("success");
+       
           setValues({
             ...values,
             name: "",
@@ -85,7 +85,7 @@ const Signup = () => {
             }}
           >
             <p>
-              Signup successfully please <Link to="signin">login Here</Link>
+              Email Sent successfully!check Your Email.
             </p>
           </div>
         </div>
@@ -131,7 +131,10 @@ const Signup = () => {
                   placeholder="last Name"
                 />
               </div>
-              <div className="form-group">
+             
+            </div>
+            <div className="col-md-6">
+             <div className="form-group">
                 <input
                   required
                   value={email}
@@ -140,8 +143,6 @@ const Signup = () => {
                   placeholder="Enter an email"
                 />
               </div>
-            </div>
-            <div className="col-md-6">
               <div className="form-group">
                 <input
                   required
@@ -151,32 +152,18 @@ const Signup = () => {
                   placeholder="Enter password"
                 />
               </div>
-              <div className="form-group">
-                <input
-                  value={userinfo}
-                  type="text"
-                  onChange={handelChange("userinfo")}
-                  placeholder="Enter more Information"
-                />
-              </div>
-              <div className="form-group">
-                <select
-                  className="form-control"
-                  defaultValue={0}
-                  placeholder="Choose account type"
-                  onChange={handelChange("role")}
-                >
-                  <option value={1}>Admin</option>
-                  <option value={0}>User</option>
-                </select>
-              </div>
+              
+             
+              
+            </div>
+           <div className="col-md-12">
               <button
                 onClick={onsubmit}
-                className="btn btn-success btn-md signupbtn"
+                className="btn btn-outline-info w-90 btn-md signupbtn"
               >
                 Signup
               </button>
-            </div>
+           </div>
           </div>
         </form>
       </div>
