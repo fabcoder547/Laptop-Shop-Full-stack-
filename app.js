@@ -31,7 +31,7 @@ mongoose
   });
 
 // MIDDLEWARES ARE HERE
-app.use(cors({origin: 'http://localhost:3000', credentials: true}));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(
   bodyparser.urlencoded({
     extended: false,
@@ -47,9 +47,11 @@ app.use("/api", productRoutes);
 app.use("/api", orderRoutes);
 app.use("/api", stripeRoutes);
 app.use(express.static(path.join(__dirname, "client", "build")));
+
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
+
 // app.get("/", (req, res) => {
 //   res.send("Hey Laptop shop");
 // });

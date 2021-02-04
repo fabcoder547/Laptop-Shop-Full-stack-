@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Base from "../core/Base";
-import {GoogleLogin} from "react-google-login"
+import { GoogleLogin } from "react-google-login";
 import { Link, Redirect } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
 import { authenticate, isAuthenticated, signin } from "../auth/helper";
 import { API } from "../backend";
 
@@ -74,7 +74,6 @@ const Signin = ({ history, location }) => {
     }
 
     if (isAuthenticated()) {
-      
       return <Redirect to="/" />;
     }
   };
@@ -110,57 +109,34 @@ const Signin = ({ history, location }) => {
     );
   };
 
+  const responseGoogle = (response) => {
+    console.log(response);
+    axios
+      .post(`${API}/googlelogin`, { idToken: response.tokenId })
+      .then((res) => {
+        // console.log(response)
+        if (res.status == 200 && res.data) {
+          if (res.data.token) {
+            authenticate(res.data, () => {
+              setValues({ ...values, isRedirected: true });
+            });
+          } else {
+            setValues({ ...values, error: "Signied Failed" });
+          }
+        } else {
+          setValues({ ...values, error: "Signied Failed" });
+        }
+      })
+      .catch((err) => {
+        //  console.log(err.response.data)
 
+        setValues({ ...values, error: err.response.data.error });
+      });
+  };
 
-
-
-
-
-
-
-
-
-  const responseGoogle=(response)=>{
-    console.log(response)
-   axios.post(`${API}/googlelogin`,{idToken:response.tokenId})
-   .then(res=>{
-
-
-    // console.log(response)
-      if(res.status==200&&res.data)
-      {
-        
-       if(res.data.token)
-       {
-          authenticate(res.data, () => {
-          
-            setValues({...values,isRedirected:true})
-          });
-       }else{
-         setValues({...values,error:"Signied Failed"})
-       }
-
-      }else{
-         setValues({...values,error:"Signied Failed"})
-      }
-
-
-   })
-   .catch(err=>{
-    //  console.log(err.response.data)
-
-      setValues({...values,error:err.response.data.error})
-   })
-  }
-
-
-  const responseErrorGoogle=(err)=>{
-    console.log(err)
-  }
-
-
-
-
+  const responseErrorGoogle = (err) => {
+    console.log(err);
+  };
 
   const signinForm = () => {
     return (
@@ -168,16 +144,22 @@ const Signin = ({ history, location }) => {
         <form>
           <div className="row text-center">
             <div className="col-md-6 text-center" style={{ margin: "0 auto" }}>
-            <GoogleLogin
-            style={{width:"90%"}}
-              render={renderProps => (
-                  <button onClick={renderProps.onClick} className="form-control btn btn-danger mb-3" ><i className="fa text-white fa-google"></i> Signin With Google</button>
+              <GoogleLogin
+                style={{ width: "90%" }}
+                render={(renderProps) => (
+                  <button
+                    onClick={renderProps.onClick}
+                    className="form-control btn btn-danger mb-3"
+                  >
+                    <i className="fa text-white fa-google"></i> Signin With
+                    Google
+                  </button>
                 )}
-                clientId="973567937994-u306n61sqv26l9dvakftoq480senggqa.apps.googleusercontent.com"
-                 buttonText="Signin with Google"
-                 onSuccess={responseGoogle}
-                  onFailure={responseErrorGoogle}
-               cookiePolicy={'single_host_origin'}
+                clientId={process.env.REACT_APP_GOOGLE_ID}
+                buttonText="Signin with Google"
+                onSuccess={responseGoogle}
+                onFailure={responseErrorGoogle}
+                cookiePolicy={"single_host_origin"}
               />
               <div className="form-group">
                 <input
@@ -195,14 +177,17 @@ const Signin = ({ history, location }) => {
                   placeholder="Enter password"
                 />
               </div>
-              <p><Link to="/users/forget/password" className="text-white">Forget Password?</Link></p>
+              <p>
+                <Link to="/users/forget/password" className="text-white">
+                  Forget Password?
+                </Link>
+              </p>
               <button
                 onClick={onsubmit}
                 className="btn btn-outline-info form-control rounded btn-md signupbtn"
               >
                 Signin
               </button>
-              
             </div>
           </div>
         </form>

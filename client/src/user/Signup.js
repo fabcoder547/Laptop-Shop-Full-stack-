@@ -39,7 +39,6 @@ const Signup = () => {
     signup({ name, email, password, userinfo, lastname, role })
       .then((data) => {
         if (data.err) {
-          
           setValues({
             ...values,
             error: "Error !please try again!",
@@ -52,7 +51,6 @@ const Signup = () => {
             success: false,
           });
         } else {
-       
           setValues({
             ...values,
             name: "",
@@ -84,9 +82,7 @@ const Signup = () => {
               width: "100%",
             }}
           >
-            <p>
-              Email Sent successfully!check Your Email.
-            </p>
+            <p>Email Sent successfully!check Your Email.</p>
           </div>
         </div>
       </div>
@@ -131,10 +127,9 @@ const Signup = () => {
                   placeholder="last Name"
                 />
               </div>
-             
             </div>
             <div className="col-md-6">
-             <div className="form-group">
+              <div className="form-group">
                 <input
                   required
                   value={email}
@@ -152,18 +147,15 @@ const Signup = () => {
                   placeholder="Enter password"
                 />
               </div>
-              
-             
-              
             </div>
-           <div className="col-md-12">
+            <div className="col-md-12">
               <button
                 onClick={onsubmit}
                 className="btn btn-outline-info w-90 btn-md signupbtn"
               >
                 Signup
               </button>
-           </div>
+            </div>
           </div>
         </form>
       </div>
