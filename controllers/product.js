@@ -208,7 +208,7 @@ exports.getProductById = (req, res, next, id) => {
 };
 
 exports.getProduct = (req, res) => {
-  req.product.photo = undefined;
+  
   res.json({
     msg: "product found successfully",
     product: req.product,
@@ -218,6 +218,7 @@ exports.getProduct = (req, res) => {
 exports.photo = (req, res, next) => {
   if (req.product.photo.data) {
     res.set("Content-Type", req.product.photo.contentType);
+  
     res.send(req.product.photo.data);
   }
   next();
@@ -306,7 +307,7 @@ exports.updateProduct = (req, res) => {
   } else {
     newLaptop.photo.data = req.file.buffer;
     newLaptop.photo.contentType = req.file.mimetype;
-  }
+  } 
   _.extend(originalProduct, newLaptop);
 
   originalProduct

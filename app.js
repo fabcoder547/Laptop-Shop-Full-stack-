@@ -31,6 +31,7 @@ mongoose
   });
 
 // MIDDLEWARES ARE HERE
+app.use(cors({origin: 'http://localhost:3000', credentials: true}));
 app.use(
   bodyparser.urlencoded({
     extended: false,

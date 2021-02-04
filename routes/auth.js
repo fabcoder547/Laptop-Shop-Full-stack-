@@ -7,6 +7,10 @@ const {
   signin,
   isSignedIn,
   isAuthenticated,
+  activation_handler,
+  forgetPasswordhandler,
+  resetPasswordHandler,
+  googleController,
 } = require("../controllers/auth");
 
 // SIGNUP :: POST :: PUBLIC
@@ -28,6 +32,8 @@ router.post(
   signup
 );
 
+router.post("/activate/user", activation_handler);
+
 // SIGNIN ::POST ::PUBLIC
 router.post(
   "/signin",
@@ -37,6 +43,20 @@ router.post(
   ],
   signin
 );
+
+router.post(
+  "/forget/password",
+  [check("email").isEmail()],
+  forgetPasswordhandler
+);
+
+router.put(
+  "/reset/password",
+  [check("password").isLength({ min: 6 })],
+  resetPasswordHandler
+);
+
+router.post("/googlelogin", googleController);
 
 router.get("/signout", signout);
 

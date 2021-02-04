@@ -45,7 +45,16 @@ const Navbar = ({ history, location }) => {
               <i class="fa fa-cart-plus"></i> Cart
             </Link>
           </li>
-
+        
+          <li className="nav-item">
+            <Link
+              to="/user/orders"
+              className="nav-link"
+              style={currentTab(history, "/cart")}
+            >
+              <i class="fa fa-cart-plus"></i> orders
+            </Link>
+          </li>
           {isAuthenticated() && isAuthenticated().user.role === 1 && (
             <li className="nav-item">
               <Link
@@ -90,8 +99,7 @@ const Navbar = ({ history, location }) => {
                   onClick={() => {
                     signout(() => {
                       history.push("/");
-                      console.log(history);
-                      console.log(location);
+                    
                     });
                   }}
                 >

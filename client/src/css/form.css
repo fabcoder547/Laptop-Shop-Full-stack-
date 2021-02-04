@@ -15,5 +15,6 @@ form .form-group input {
 .signupbtn {
   color: #fff;
   border-radius: 10px;
+  width: 100%;
   padding: 7px 35px;
 }

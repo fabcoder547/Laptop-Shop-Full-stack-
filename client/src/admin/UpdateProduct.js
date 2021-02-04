@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Base from "../core/Base";
 import { Link } from "react-router-dom";
+import swal from "sweetalert"
 import {
   getAllBrands,
   updateProduct,
@@ -49,6 +50,23 @@ const UpdateProduct = ({ match }) => {
   } = values;
 
   const { user, token } = isAuthenticated();
+
+
+ const arrayBufferToBase64 = (buffer) => {
+    var binary = "";
+    var bytes = [].slice.call(new Uint8Array(buffer));
+    bytes.forEach((b) => (binary += String.fromCharCode(b)));
+    return window.btoa(binary);
+  };
+
+
+
+
+
+
+
+
+
   const preloadBrands = () => {
     getAllBrands()
       .then((data) => {
@@ -69,6 +87,7 @@ const UpdateProduct = ({ match }) => {
   const preload = (productId) => {
     getProduct(productId)
       .then((data) => {
+        // console.log('product ',data)
         if (data == undefined) {
           setValues({
             ...values,
@@ -81,7 +100,7 @@ const UpdateProduct = ({ match }) => {
         } else {
           preloadBrands();
 
-          console.log(data.product.description.brand);
+          // console.log(data.product.description.brand);
           setMyBrand(data.product.description.brand);
           setValues({
             ...values,
@@ -99,6 +118,9 @@ const UpdateProduct = ({ match }) => {
             error: false,
             formData: new FormData(),
           });
+          var base64Flag = `data:${data.product.photo.ContentType};base64,`;
+          var imageStr = arrayBufferToBase64(data.product.photo.data.data);
+          setMyphoto(base64Flag + imageStr);
         }
       })
       .catch((err) => {
@@ -109,17 +131,24 @@ const UpdateProduct = ({ match }) => {
   useEffect(() => {
     preload(match.params.productId);
 
-    console.log(values);
+    // console.log(values);
   }, [reload]);
 
   const onSubmit = (e) => {
     e.preventDefault();
     // setValues({ ...values, loading: true, error: false });
-    console.log(formData);
+    // console.log(formData);
     updateProduct(match.params.productId, token, user._id, formData)
       .then((data) => {
         if (data == undefined) {
           setValues({ ...values, error: "not able to create product" });
+          swal({
+         title: "Server Error",
+      
+        icon: "error",
+        buttons: true,
+       dangerMode: true,
+          })
         } else if (data.error) {
           setValues({
             ...values,
@@ -127,9 +156,22 @@ const UpdateProduct = ({ match }) => {
             loading: false,
             updatedProduct: false,
           });
+          swal({
+        title: "Something went wrong",
+        text: data.error,
+        icon: "error",
+        buttons: true,
+       dangerMode: true,
+          })
         } else {
-          alert("Refresh the page for updating an image");
-          console.log("form data", formData);
+        
+
+          swal({
+  title: "Successfully Updated!",
+  text: "Your Product is uptodate",
+  icon: "success",
+    buttons:true,        
+});
           setMyBrand("");
           setValues({
             ...values,
@@ -147,7 +189,7 @@ const UpdateProduct = ({ match }) => {
             description: "",
             photo: undefined,
           });
-          setMyphoto("");
+         
           setRealod(!reload);
         }
       })
@@ -172,18 +214,10 @@ const UpdateProduct = ({ match }) => {
     );
   };
 
-  // const onChangeme = (event) => {
-  //   console.log(event.target.files[0]);
-  //   if (event.target.files && event.target.files[0]) {
-  //     setMyphoto(URL.createObjectURL(event.target.files[0]));
-  //   }
-  // };
   const handleChange = (name) => (e) => {
-    // const value = name === "photo" ? e.target.files[0] : e.target.value;
-
     let value;
     if (name === "photo") {
-      setMyphoto(URL.createObjectURL(e.target.files[0]));
+      setMyphoto((URL||window.webkitURL).createObjectURL(e.target.files[0]));
       value = e.target.files[0];
     } else {
       value = e.target.value;
@@ -192,24 +226,23 @@ const UpdateProduct = ({ match }) => {
     if (name === "brand") {
       setMyBrand(e.target.value);
     }
-    console.log("form data", formData);
+    
     setValues({ ...values, [name]: value });
-  };
+  }
+
+
   const createProductForm = () => (
     <form>
       <div className="row">
-        <div className="col-md-6">
-          <span className="text-danger">Post photo</span>
-          <img
+      <div className="col-md-12">
+        <img
             value={reload}
             className="img-fluid rounded"
             src={
-              photo === undefined
-                ? `${API}/product/photo/${match.params.productId}`
-                : myphoto
+             myphoto
             }
-            height="120px"
-            width="100px"
+            height="220px"
+            width="250px"
           />
           <div className="form-group">
             <input
@@ -220,6 +253,11 @@ const UpdateProduct = ({ match }) => {
               placeholder="choose a file"
             />
           </div>
+          
+      </div>
+      <div className="row mb-5">
+        <div className="col-md-6">
+          
           <div className="form-group">
             <input
               onChange={handleChange("name")}
@@ -230,11 +268,20 @@ const UpdateProduct = ({ match }) => {
             />
           </div>
           <div className="form-group">
-            <textarea
+            <input
               onChange={handleChange("display")}
               className="form-control"
               placeholder="display"
               value={display}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              onChange={handleChange("rom")}
+              type="number"
+              className="form-control"
+              placeholder="Enter rom  (e.g:16 (gb))"
+              value={rom}
             />
           </div>
           <div className="form-group">
@@ -290,15 +337,7 @@ const UpdateProduct = ({ match }) => {
             />
           </div>
 
-          <div className="form-group">
-            <input
-              onChange={handleChange("rom")}
-              type="number"
-              className="form-control"
-              placeholder="Enter rom  (e.g:16 (gb))"
-              value={rom}
-            />
-          </div>
+          
 
           <button
             type="submit"
@@ -307,6 +346,7 @@ const UpdateProduct = ({ match }) => {
           >
             update Product
           </button>
+          </div>
         </div>
       </div>
     </form>

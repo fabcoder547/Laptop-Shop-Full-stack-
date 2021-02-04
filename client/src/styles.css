@@ -4,6 +4,15 @@
 }
 body {
   font-family: "Roboto", sans-serif;
+  /* text-transform: capitalize; */
+}
+
+.css-df17o1 {
+  position: fixed;
+}
+#root {
+  max-width: 1360px;
+  margin: 0 auto;
 }
 .btn,
 .jumbotron,
@@ -40,7 +49,7 @@ body {
 }
 @media (min-width: 960px) {
   .landinng-div .landing-title {
-    font-size: 58px;
+    font-size: 40px;
     letter-spacing: 1px;
   }
   .footer-title {
@@ -68,6 +77,8 @@ footer {
   background-color: #2f363f;
   padding: 10px 10px;
   text-align: center;
+  height: 35vh;
+  max-height: 350px;
 }
 
 .main-content {
@@ -163,7 +174,8 @@ footer {
 }
 
 .home-main-content {
-  text-align: center;
+  /* text-align: center; */
+  justify-content: space-between;
   padding: 10px 5px;
 }
 

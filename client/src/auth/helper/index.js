@@ -10,7 +10,7 @@ export const signup = (user) => {
     body: JSON.stringify(user),
   })
     .then((response) => {
-      console.log(response + "here");
+      // console.log(response )
 
       return response.json();
     })
@@ -27,7 +27,7 @@ export const signin = (user) => {
     body: JSON.stringify(user),
   })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       return response.json();
     })
     .catch((err) => console.log(err));
@@ -48,7 +48,7 @@ export const signout = (next) => {
     return fetch(`${API}/signout`, {
       method: "GET",
     })
-      .then((response) => console.log("success signout"))
+      .then((response) => console.log(""))
       .catch((err) => {
         console.log(err);
       });

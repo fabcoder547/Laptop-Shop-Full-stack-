@@ -11,10 +11,15 @@ const {
   getAllOrders,
   updateStatus,
   getOrderStatus,
+  getOrder,
+  getOrdersOfUser
 } = require("../controllers/order");
 
 router.param("id", getUserById);
 router.param("orderId", getOrderById);
+
+
+router.get('/order/:orderId/user/:id',isSignedIn,isAuthenticated,isAdmin,getOrder)
 
 router.post(
   "/order/create/:id",
@@ -48,4 +53,7 @@ router.put(
   isAdmin,
   updateStatus
 );
+
+
+router.get("/order/user/orders/:id",isSignedIn,isAuthenticated,getOrdersOfUser)
 module.exports = router;

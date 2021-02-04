@@ -6,12 +6,20 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "activate": "0.0.1",
+    "axios": "^0.21.1",
+    "dateformat": "^4.4.1",
     "query-string": "^6.12.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-google-login": "^5.2.2",
+    "react-loading": "^2.0.3",
+    "react-loading-overlay": "^1.0.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
-    "react-stripe-checkout": "^2.6.3"
+    "react-scripts": "^2.1.8",
+    "react-spinners": "^0.10.4",
+    "react-stripe-checkout": "^2.6.3",
+    "sweetalert": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",

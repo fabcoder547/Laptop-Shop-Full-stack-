@@ -5,9 +5,12 @@ import Card from "./Card";
 import { loadCart } from "./helper/cartHelper";
 import StripeCheckout from "./stripeCheckout";
 
+import Loader from "./Loader";
+
 const Home = ({ history }) => {
   const [products, setProducts] = useState([]);
   const [reload, setReload] = useState(false);
+  const [loading, setloading] = useState(false);
   useEffect(() => {
     setProducts(loadCart());
   }, [reload]);
@@ -32,7 +35,7 @@ const Home = ({ history }) => {
             );
           })
         ) : (
-          <h3 className="text-danger">No Laptops</h3>
+          <h5 className="text-danger">No Laptops in your Cart!</h5>
         )}
       </div>
     );
@@ -44,8 +47,15 @@ const Home = ({ history }) => {
       </div>
     );
   };
+
+  const loadingMessage = () => {
+    if (loading) {
+      return <Loader />;
+    }
+  };
   return (
     <Base title="cart Page" description="All you want is here!">
+      {loadingMessage()}
       <div className="row" style={{ width: "100%", textAlign: "center" }}>
         <h4
           style={{ margin: "20px auto", width: "100%" }}
@@ -60,6 +70,8 @@ const Home = ({ history }) => {
               products={products}
               reload={reload}
               setReload={setReload}
+              loading={loading}
+              setloading={setloading}
             />
           </div>
         </div>
