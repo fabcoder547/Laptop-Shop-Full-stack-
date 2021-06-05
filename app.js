@@ -14,6 +14,7 @@ const brandRoutes = require("./routes/brand");
 const productRoutes = require("./routes/product");
 const orderRoutes = require("./routes/order");
 const stripeRoutes = require("./routes/stripePayment");
+const { urlencoded } = require("body-parser");
 // connecting to the Database....
 // mongodb://localhost:27017/laptop
 mongoose
@@ -38,6 +39,8 @@ app.use(
   })
 );
 app.use(bodyparser.json());
+app.use(express.urlencoded());
+app.use(express.json());
 app.use(cookieparser());
 app.use(cors());
 app.use("/api", authRouters);

@@ -21,7 +21,9 @@ const Home = ({ history }) => {
         <h4 className="card-header bg-dark text-white">
           Laptops added in Cart
         </h4>
-        {products.length != 0 ? (
+        {products && products.length != 0 ? (
+          products &&
+          products.length &&
           products.map((product, index) => {
             return (
               <Card
