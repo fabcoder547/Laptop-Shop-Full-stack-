@@ -3,7 +3,8 @@
   margin: 0;
 }
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
+  font-family: "Playfair Display", serif;
   /* text-transform: capitalize; */
 }
 
@@ -11,7 +12,7 @@ body {
   position: fixed;
 }
 #root {
-  max-width: 1360px;
+  max-width: 1450px;
   margin: 0 auto;
 }
 .btn,
