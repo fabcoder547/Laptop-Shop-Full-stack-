@@ -55,9 +55,9 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
-// app.get("/", (req, res) => {
-//   res.send("Hey Laptop shop");
-// });
+app.get("/", (req, res) => {
+  res.send("Hey Laptop shop");
+});
 console.log(path.join(__dirname, "client", "build", "index.html"));
 
 app.listen(PORT, () => {
